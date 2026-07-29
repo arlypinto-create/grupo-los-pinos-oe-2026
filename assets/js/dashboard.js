@@ -10,7 +10,7 @@
     activeObjective: null,
     lastFocus: null,
     visibleBusinessSeries: new Set([
-      "FacturaciÃ³n Mensual",
+      "Facturación Mensual",
       "Gasto Operativo Anual",
       "Inversiones",
       "Retiros Societarios",
@@ -39,7 +39,7 @@
   });
 
   const businessSeries = {
-    "FacturaciÃ³n Mensual": { color: "#58a947", type: "bar" },
+    "Facturación Mensual": { color: "#58a947", type: "bar" },
     "Gasto Operativo Anual": { color: "#7763a6", type: "bar" },
     Inversiones: { color: "#e38b2c", type: "line" },
     "Retiros Societarios": { color: "#c96262", type: "line" },
@@ -56,10 +56,10 @@
 
   const publicText = (value, fallback = "A definir") => {
     const cleaned = String(value ?? "")
-      .replaceAll("Pendiente de validaciÃ³n", "A confirmar por DirecciÃ³n")
-      .replaceAll("pendiente de validaciÃ³n", "a confirmar por DirecciÃ³n")
+      .replaceAll("Pendiente de validación", "A confirmar por Dirección")
+      .replaceAll("pendiente de validación", "a confirmar por Dirección")
       .replace(/\?+/g, "")
-      .replace(/^\s*[â€¢.]\s*/gm, "")
+      .replace(/^\s*[•.]\s*/gm, "")
       .replace(/[ \t]{2,}/g, " ")
       .trim();
     return cleaned || fallback;
@@ -69,7 +69,7 @@
     Number.isFinite(value) ? percentFormatter.format(value) : "S/D";
 
   const isPercentageUnit = (unit) =>
-    /porcentaje|%|Ã­ndice|implementaciÃ³n|avance del plan/i.test(unit ?? "");
+    /porcentaje|%|índice|implementación|avance del plan/i.test(unit ?? "");
 
   const formatMetric = (value, unit) => {
     if (!Number.isFinite(value)) return "A definir";
@@ -82,7 +82,7 @@
   const shortUnit = (unit) => {
     const text = String(unit ?? "").toLowerCase();
     if (text.includes("mes")) return "meses";
-    if (text.includes("mÃ³dulo")) return "mÃ³dulos";
+    if (text.includes("módulo")) return "módulos";
     if (text.includes("proceso")) return "procesos";
     if (text.includes("cantidad")) return "unidades";
     return unit || "unidades";
@@ -112,14 +112,14 @@
     if (isPercentageUnit(objective.unidad)) {
       const points = decimalFormatter.format(Math.abs(difference) * 100);
       return difference > 0
-        ? `El resultado superÃ³ la meta en ${points} puntos porcentuales.`
-        : `El resultado se ubicÃ³ ${points} puntos porcentuales por debajo de la meta.`;
+        ? `El resultado superó la meta en ${points} puntos porcentuales.`
+        : `El resultado se ubicó ${points} puntos porcentuales por debajo de la meta.`;
     }
     const value = formatMetric(Math.abs(difference), objective.unidad);
     const unit = shortUnit(objective.unidad);
     return difference > 0
-      ? `El resultado superÃ³ la meta en ${value} ${unit}.`
-      : `El resultado se ubicÃ³ ${value} ${unit} por debajo de la meta.`;
+      ? `El resultado superó la meta en ${value} ${unit}.`
+      : `El resultado se ubicó ${value} ${unit} por debajo de la meta.`;
   };
 
   const metricForPeriod = (objective, period = state.period) => {
@@ -234,7 +234,7 @@
               </div>
               <div class="card-progress-track" aria-hidden="true"><span style="width:${width}%"></span></div>
             </div>
-            <button type="button" class="open-card-button" data-open-objective="${objective.numero}">Abrir ficha â†’</button>
+            <button type="button" class="open-card-button" data-open-objective="${objective.numero}">Abrir ficha →</button>
           </article>`;
       })
       .join("");
@@ -267,7 +267,7 @@
     const value = objective[key];
     return Number.isFinite(value)
       ? `${formatMetric(value, objective.unidad)}${isPercentageUnit(objective.unidad) ? "" : ` ${shortUnit(objective.unidad)}`}`
-      : "A confirmar por DirecciÃ³n";
+      : "A confirmar por Dirección";
   };
 
   const reviewMarkup = (objective) => {
@@ -281,7 +281,7 @@
           <li>Nueva propuesta anual: 31 meses (1S: 15 meses / 2S: 16 meses)</li>
         </ul>`;
     }
-    return `<p class="review-text">${escapeHtml(publicText(objective.revision_2s, "A confirmar por DirecciÃ³n")).replaceAll("\n", "<br>")}</p>`;
+    return `<p class="review-text">${escapeHtml(publicText(objective.revision_2s, "A confirmar por Dirección")).replaceAll("\n", "<br>")}</p>`;
   };
 
   const actionList = (objective) => {
@@ -302,14 +302,14 @@
     if (!objective) return;
     state.activeObjective = objective;
     state.lastFocus = document.activeElement;
-    $("detailCode").textContent = `Objetivo EstratÃ©gico ${String(objective.numero).padStart(2, "0")}`;
+    $("detailCode").textContent = `Objetivo Estratégico ${String(objective.numero).padStart(2, "0")}`;
     $("detailTitle").textContent = `${objective.codigo} | ${publicText(objective.nombre)}`;
     $("detailPurpose").textContent = publicText(objective.finalidad);
     const status = objective.estado_1s || "Sin datos";
     const annualView = state.period === "annual";
     const contributionLabel = annualView
-      ? "ContribuciÃ³n ponderada anual"
-      : "ContribuciÃ³n ponderada 1S";
+      ? "Contribución ponderada anual"
+      : "Contribución ponderada 1S";
     const contributionValue = annualView
       ? objective.contribucion_anual
       : objective.contribucion_1s;
@@ -333,7 +333,7 @@
           <strong>${formatPercent(objective.avance_anual)}</strong>
         </div>
         <div class="indicator-tile">
-          <span>PonderaciÃ³n</span>
+          <span>Ponderación</span>
           <strong>${formatPercent(objective.ponderacion)}</strong>
         </div>
         <div class="indicator-tile">
@@ -357,11 +357,11 @@
         </div>
         <p class="result-narrative">${escapeHtml(differenceNarrative(objective))}</p>
         <p class="result-state">Estado descriptivo: <span class="state-pill ${stateClass(status)}">${escapeHtml(status)}</span></p>
-        <p class="explanation">${escapeHtml(publicText(objective.explicacion, "A confirmar por DirecciÃ³n"))}</p>
+        <p class="explanation">${escapeHtml(publicText(objective.explicacion, "A confirmar por Dirección"))}</p>
       </article>
 
       <article class="detail-card full">
-        <h3>RevisiÃ³n Segundo Semestre</h3>
+        <h3>Revisión Segundo Semestre</h3>
         <div class="proposal-grid">
           <div class="proposal-box">
             <span>Nueva propuesta anual</span>
@@ -373,11 +373,11 @@
           </div>
         </div>
         ${reviewMarkup(objective)}
-        <p class="explanation"><strong>JustificaciÃ³n:</strong> ${escapeHtml(publicText(objective.justificacion, "A confirmar por DirecciÃ³n"))}</p>
+        <p class="explanation"><strong>Justificación:</strong> ${escapeHtml(publicText(objective.justificacion, "A confirmar por Dirección"))}</p>
       </article>
 
       <article class="detail-card full">
-        <h3>PrÃ³ximos acuerdos de gestiÃ³n</h3>
+        <h3>Próximos acuerdos de gestión</h3>
         <ul class="action-list">${actionList(objective)}</ul>
       </article>`;
     $("detailBackdrop").hidden = false;
@@ -394,7 +394,7 @@
 
   const businessRowClass = (indicator) => {
     if (indicator.includes("ANDIS")) return "row-andis";
-    if (indicator.includes("FacturaciÃ³n")) return "row-billing";
+    if (indicator.includes("Facturación")) return "row-billing";
     if (indicator.includes("Gasto")) return "row-spend";
     if (indicator.includes("Inversiones")) return "row-invest";
     if (indicator.includes("Fondo")) return "row-fund";
@@ -403,7 +403,7 @@
   };
 
   const formatBusinessValue = (value, unit) => {
-    if (!Number.isFinite(value)) return "â€”";
+    if (!Number.isFinite(value)) return "—";
     return unit === "ARS"
       ? currencyFormatter.format(value).replace(/\s+/g, " ")
       : decimalFormatter.format(value);
@@ -530,7 +530,7 @@
     const svg = svgElement("svg", {
       viewBox: `0 0 ${width} ${height}`,
       role: "img",
-      "aria-label": "EvoluciÃ³n mensual del negocio expresada en mÃ³dulos",
+      "aria-label": "Evolución mensual del negocio expresada en módulos",
     });
 
     for (let tick = 0; tick <= 5; tick += 1) {
@@ -585,7 +585,7 @@
           rx: 4,
           fill: businessSeries[row.indicator].color,
           class: "chart-bar",
-          "data-tooltip": `${months[index].label} Â· ${row.indicator}: ${decimalFormatter.format(value)} mÃ³dulos`,
+          "data-tooltip": `${months[index].label} · ${row.indicator}: ${decimalFormatter.format(value)} módulos`,
         });
         svg.appendChild(rect);
       });
@@ -612,7 +612,7 @@
               r: 5,
               fill: businessSeries[row.indicator].color,
               class: "chart-point",
-              "data-tooltip": `${months[index].label} Â· ${row.indicator}: ${decimalFormatter.format(value)} mÃ³dulos`,
+              "data-tooltip": `${months[index].label} · ${row.indicator}: ${decimalFormatter.format(value)} módulos`,
             }),
           );
         });
@@ -645,7 +645,7 @@
     const svg = svgElement("svg", {
       viewBox: `0 0 ${width} ${height}`,
       role: "img",
-      "aria-label": "EvoluciÃ³n del Valor del MÃ³dulo ANDIS",
+      "aria-label": "Evolución del Valor del Módulo ANDIS",
     });
 
     for (let tick = 0; tick <= 4; tick += 1) {
@@ -695,7 +695,7 @@
           r: 6,
           fill: "#06a9df",
           class: "chart-point",
-          "data-tooltip": `${state.data.businessEvolution.months[index].label} Â· ${currencyFormatter.format(value)}`,
+          "data-tooltip": `${state.data.businessEvolution.months[index].label} · ${currencyFormatter.format(value)}`,
         }),
       );
     });
@@ -756,6 +756,26 @@
         cache: "no-store",
       });
       const config = configResponse.ok ? await configResponse.json() : null;
+      if (
+        config?.dataSource?.mode === "google-sheet" &&
+        config?.dataSource?.spreadsheetId &&
+        window.GLPSheetSync
+      ) {
+        try {
+          const liveData = await window.GLPSheetSync(
+            window.GLPPublicData,
+            config.dataSource,
+          );
+          window.GLPLiveStatus = { ok: true, loadedAt: new Date().toISOString() };
+          return liveData;
+        } catch (error) {
+          window.GLPLiveStatus = {
+            ok: false,
+            message: String(error?.message || error),
+          };
+          return window.GLPPublicData;
+        }
+      }
       const endpoint = config?.dataSource?.appsScriptEndpoint?.trim();
       const url =
         config?.dataSource?.mode === "apps-script" && endpoint

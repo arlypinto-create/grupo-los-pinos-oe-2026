@@ -19,6 +19,8 @@
   };
 
   const locale = "es-AR";
+  const liveRefreshIntervalMs = 5 * 60 * 1000;
+  let lastLiveRefreshAt = 0;
   const numberFormatter = new Intl.NumberFormat(locale, {
     maximumFractionDigits: 1,
     minimumFractionDigits: 0,
@@ -795,6 +797,30 @@
       if (!state.data?.objectives?.length) throw new Error("unavailable");
       bindControls();
       renderAll();
+      lastLiveRefreshAt = Date.now();
+
+      window.setInterval(async () => {
+        if (document.hidden) return;
+        const refreshedData = await loadFromConfig();
+        if (!refreshedData?.objectives?.length) return;
+        state.data = refreshedData;
+        lastLiveRefreshAt = Date.now();
+        renderAll();
+      }, liveRefreshIntervalMs);
+
+      document.addEventListener("visibilitychange", async () => {
+        if (
+          document.hidden ||
+          Date.now() - lastLiveRefreshAt < liveRefreshIntervalMs
+        ) {
+          return;
+        }
+        const refreshedData = await loadFromConfig();
+        if (!refreshedData?.objectives?.length) return;
+        state.data = refreshedData;
+        lastLiveRefreshAt = Date.now();
+        renderAll();
+      });
     } catch {
       $("loadFallback").hidden = false;
     }

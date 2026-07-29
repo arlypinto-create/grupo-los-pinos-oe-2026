@@ -1,8 +1,13 @@
 {
   "dataSource": {
-    "mode": "local",
+    "mode": "google-sheet",
     "localUrl": "assets/data/dashboard-data.json",
-    "appsScriptEndpoint": ""
+    "appsScriptEndpoint": "",
+    "spreadsheetId": "1O0jh4DdIPcb2jewzFdvKyOJeTvqPJaAhrasxHPtpjpU",
+    "objectivesSheet": "Matriz Ejecutiva",
+    "objectivesHeaders": 3,
+    "businessSheet": "KPI GLP",
+    "businessHeaders": 1
   },
   "presentation": {
     "defaultPeriod": "annual",

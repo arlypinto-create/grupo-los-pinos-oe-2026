@@ -26,7 +26,7 @@
 
   <main id="contenido" class="shell page-stack">
     <section class="control-bar" aria-label="Controles del dashboard">
-      <div class="period-tabs" role="tablist" aria-label="PerÃ­odo">
+      <div class="period-tabs" role="tablist" aria-label="Período">
         <button class="period-tab is-active" type="button" role="tab" aria-selected="true" data-period="annual">Total anual</button>
         <button class="period-tab" type="button" role="tab" aria-selected="false" data-period="semester">Primer semestre</button>
         <button class="period-tab" type="button" role="tab" aria-selected="false" data-period="compare">Comparativo</button>
@@ -40,10 +40,10 @@
       <div>
         <p class="eyebrow">Resultado institucional consolidado</p>
         <h2 id="weightedTitle">Objetivo General Ponderado</h2>
-        <p>Resultado consolidado de los objetivos institucionales segÃºn su ponderaciÃ³n.</p>
+        <p>Resultado consolidado de los objetivos institucionales según su ponderación.</p>
       </div>
       <div class="primary-kpi-value">
-        <strong id="weightedValue">â€”</strong>
+        <strong id="weightedValue">—</strong>
         <span id="weightedPeriod">Primer semestre</span>
       </div>
     </section>
@@ -52,7 +52,7 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">Seguimiento institucional</p>
-          <h2 id="objectivesTitle">Cumplimiento por objetivo estratÃ©gico</h2>
+          <h2 id="objectivesTitle">Cumplimiento por objetivo estratégico</h2>
         </div>
         <div class="filters">
           <label class="search-field">
@@ -76,25 +76,25 @@
 
       <div class="objective-directory-heading">
         <div>
-          <h3>AnÃ¡lisis Individual de OE</h3>
+          <h3>Análisis Individual de OE</h3>
         </div>
         <span id="resultCount" class="result-count"></span>
       </div>
       <div id="objectiveCards" class="objective-grid"></div>
-      <p id="emptyState" class="empty-state" hidden>No hay objetivos que coincidan con la bÃºsqueda.</p>
+      <p id="emptyState" class="empty-state" hidden>No hay objetivos que coincidan con la búsqueda.</p>
     </section>
 
     <section class="business-section" aria-labelledby="businessTitle">
       <div class="section-heading">
         <div>
           <p class="eyebrow">Seguimiento mensual</p>
-          <h2 id="businessTitle">EvoluciÃ³n del Negocio</h2>
-          <p>Expresado en mÃ³dulos</p>
+          <h2 id="businessTitle">Evolución del Negocio</h2>
+          <p>Expresado en módulos</p>
         </div>
       </div>
 
       <div class="panel table-panel">
-        <div class="table-scroll" tabindex="0" aria-label="Tabla de evoluciÃ³n del negocio">
+        <div class="table-scroll" tabindex="0" aria-label="Tabla de evolución del negocio">
           <table id="businessTable">
             <thead id="businessTableHead"></thead>
             <tbody id="businessTableBody"></tbody>
@@ -106,22 +106,22 @@
         <article class="panel chart-card">
           <div class="chart-card-heading">
             <div>
-              <h3>EvoluciÃ³n mensual</h3>
-              <p>FacturaciÃ³n, gasto, inversiones, retiros y saldo.</p>
+              <h3>Evolución mensual</h3>
+              <p>Facturación, gasto, inversiones, retiros y saldo.</p>
             </div>
           </div>
           <div id="businessLegend" class="series-legend" aria-label="Series visibles"></div>
-          <div id="businessChart" class="svg-chart" aria-label="GrÃ¡fico de evoluciÃ³n mensual"></div>
+          <div id="businessChart" class="svg-chart" aria-label="Gráfico de evolución mensual"></div>
         </article>
 
         <article class="panel chart-card andis-card">
           <div class="chart-card-heading">
             <div>
-              <h3>EvoluciÃ³n del Valor del MÃ³dulo ANDIS</h3>
+              <h3>Evolución del Valor del Módulo ANDIS</h3>
               <p>Valores mensuales expresados en pesos.</p>
             </div>
           </div>
-          <div id="andisChart" class="svg-chart" aria-label="GrÃ¡fico del Valor del MÃ³dulo ANDIS"></div>
+          <div id="andisChart" class="svg-chart" aria-label="Gráfico del Valor del Módulo ANDIS"></div>
         </article>
       </div>
     </section>
@@ -149,16 +149,17 @@
           <h2 id="detailTitle"></h2>
           <p id="detailPurpose" class="detail-purpose"></p>
         </div>
-        <button id="closeDetail" class="close-button" type="button" aria-label="Cerrar ficha">Ã—</button>
+        <button id="closeDetail" class="close-button" type="button" aria-label="Cerrar ficha">×</button>
       </header>
       <div id="detailContent" class="detail-content"></div>
     </section>
   </div>
 
   <div id="chartTooltip" class="chart-tooltip" role="status" hidden></div>
-  <p id="loadFallback" class="load-fallback" hidden>La informaciÃ³n no estÃ¡ disponible temporalmente.</p>
+  <p id="loadFallback" class="load-fallback" hidden>La información no está disponible temporalmente.</p>
 
   <script src="assets/data/dashboard-data.js"></script>
+  <script src="assets/js/sheet-sync.js"></script>
   <script src="assets/js/dashboard.js" defer></script>
 </body>
 </html>

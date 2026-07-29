@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Dashboard Objetivos Institucionales 2026</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
+
+  <header class="institutional-header">
+    <div class="shell header-inner">
+      <h1>Dashboard Objetivos Institucionales 2026</h1>
+      <img
+        src="assets/img/grupo-los-pinos-logo.svg"
+        alt="Grupo Los Pinos"
+        class="brand-logo"
+        width="270"
+        height="82"
+      >
+    </div>
+  </header>
+
+  <main id="contenido" class="shell page-stack">
+    <section class="control-bar" aria-label="Controles del dashboard">
+      <div class="period-tabs" role="tablist" aria-label="PerÃ­odo">
+        <button class="period-tab is-active" type="button" role="tab" aria-selected="true" data-period="annual">Total anual</button>
+        <button class="period-tab" type="button" role="tab" aria-selected="false" data-period="semester">Primer semestre</button>
+        <button class="period-tab" type="button" role="tab" aria-selected="false" data-period="compare">Comparativo</button>
+      </div>
+      <div class="utility-actions">
+        <button id="printButton" class="quiet-button" type="button">Imprimir</button>
+      </div>
+    </section>
+
+    <section class="primary-kpi" aria-labelledby="weightedTitle">
+      <div>
+        <p class="eyebrow">Resultado institucional consolidado</p>
+        <h2 id="weightedTitle">Objetivo General Ponderado</h2>
+        <p>Resultado consolidado de los objetivos institucionales segÃºn su ponderaciÃ³n.</p>
+      </div>
+      <div class="primary-kpi-value">
+        <strong id="weightedValue">â€”</strong>
+        <span id="weightedPeriod">Primer semestre</span>
+      </div>
+    </section>
+
+    <section class="panel objective-panel" aria-labelledby="objectivesTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Seguimiento institucional</p>
+          <h2 id="objectivesTitle">Cumplimiento por objetivo estratÃ©gico</h2>
+        </div>
+        <div class="filters">
+          <label class="search-field">
+            <span class="sr-only">Buscar objetivo</span>
+            <input id="searchInput" type="search" placeholder="Buscar OE o palabra clave" autocomplete="off">
+          </label>
+          <label class="select-field">
+            <span class="sr-only">Filtrar por estado</span>
+            <select id="stateFilter">
+              <option value="all">Todos los estados</option>
+              <option value="Cumplido">Cumplido</option>
+              <option value="En seguimiento">En seguimiento</option>
+              <option value="En proceso">En proceso</option>
+              <option value="Sin datos">Sin datos</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="objectiveChart" class="objective-chart" aria-live="polite"></div>
+
+      <div class="objective-directory-heading">
+        <div>
+          <h3>AnÃ¡lisis Individual de OE</h3>
+        </div>
+        <span id="resultCount" class="result-count"></span>
+      </div>
+      <div id="objectiveCards" class="objective-grid"></div>
+      <p id="emptyState" class="empty-state" hidden>No hay objetivos que coincidan con la bÃºsqueda.</p>
+    </section>
+
+    <section class="business-section" aria-labelledby="businessTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Seguimiento mensual</p>
+          <h2 id="businessTitle">EvoluciÃ³n del Negocio</h2>
+          <p>Expresado en mÃ³dulos</p>
+        </div>
+      </div>
+
+      <div class="panel table-panel">
+        <div class="table-scroll" tabindex="0" aria-label="Tabla de evoluciÃ³n del negocio">
+          <table id="businessTable">
+            <thead id="businessTableHead"></thead>
+            <tbody id="businessTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="business-charts">
+        <article class="panel chart-card">
+          <div class="chart-card-heading">
+            <div>
+              <h3>EvoluciÃ³n mensual</h3>
+              <p>FacturaciÃ³n, gasto, inversiones, retiros y saldo.</p>
+            </div>
+          </div>
+          <div id="businessLegend" class="series-legend" aria-label="Series visibles"></div>
+          <div id="businessChart" class="svg-chart" aria-label="GrÃ¡fico de evoluciÃ³n mensual"></div>
+        </article>
+
+        <article class="panel chart-card andis-card">
+          <div class="chart-card-heading">
+            <div>
+              <h3>EvoluciÃ³n del Valor del MÃ³dulo ANDIS</h3>
+              <p>Valores mensuales expresados en pesos.</p>
+            </div>
+          </div>
+          <div id="andisChart" class="svg-chart" aria-label="GrÃ¡fico del Valor del MÃ³dulo ANDIS"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <span>Grupo Los Pinos</span>
+      <span>Objetivos Institucionales 2026</span>
+    </div>
+  </footer>
+
+  <div id="detailBackdrop" class="detail-backdrop" hidden>
+    <section
+      id="objectiveDetail"
+      class="detail-sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="detailTitle"
+      tabindex="-1"
+    >
+      <header class="detail-header">
+        <div>
+          <p id="detailCode" class="eyebrow"></p>
+          <h2 id="detailTitle"></h2>
+          <p id="detailPurpose" class="detail-purpose"></p>
+        </div>
+        <button id="closeDetail" class="close-button" type="button" aria-label="Cerrar ficha">Ã—</button>
+      </header>
+      <div id="detailContent" class="detail-content"></div>
+    </section>
+  </div>
+
+  <div id="chartTooltip" class="chart-tooltip" role="status" hidden></div>
+  <p id="loadFallback" class="load-fallback" hidden>La informaciÃ³n no estÃ¡ disponible temporalmente.</p>
+
+  <script src="assets/data/dashboard-data.js"></script>
+  <script src="assets/js/dashboard.js" defer></script>
+</body>
+</html>
+

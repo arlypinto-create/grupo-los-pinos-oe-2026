@@ -1,0 +1,12 @@
+{
+  "dataSource": {
+    "mode": "local",
+    "localUrl": "assets/data/dashboard-data.json",
+    "appsScriptEndpoint": ""
+  },
+  "presentation": {
+    "defaultPeriod": "annual",
+    "locale": "es-AR"
+  }
+}
+
